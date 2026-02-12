@@ -1,10 +1,10 @@
-# ABAC Engine Jackson Module
+# AuthZen Jackson Module
 
-Jackson serialization/deserialization support for ABAC Engine policies and statements.
+Jackson serialization/deserialization support for AuthZen policies and statements.
 
 ## Overview
 
-The `abac-engine-jackson` module provides Jackson integration for deserializing JSON into ABAC Engine `Policy` and `Statement` objects. All deserialization uses the factory methods (`PolicyFactory.create()` and `StatementFactory.create()`) to ensure validation is applied.
+The `authzen-jackson` module provides Jackson integration for deserializing JSON into AuthZen `Policy` and `Statement` objects. All deserialization uses the factory methods (`PolicyFactory.create()` and `StatementFactory.create()`) to ensure validation is applied.
 
 ## Maven Dependency
 
@@ -17,8 +17,8 @@ The `abac-engine-jackson` module provides Jackson integration for deserializing 
 </repositories>
 
 <dependency>
-    <groupId>com.github.abac-engine</groupId>
-    <artifactId>abac-engine-jackson</artifactId>
+    <groupId>com.github.nebulithm</groupId>
+    <artifactId>authzen-jackson</artifactId>
     <version>v1.0.0</version>
 </dependency>
 ```

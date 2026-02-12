@@ -1,6 +1,6 @@
-# ABAC Engine - Attribute-Based Access Control Library
+# AuthZen - Attribute-Based Access Control Library
 
-ABAC Engine is a Java library for attribute-based authorization with AWS IAM-style dual policy evaluation.
+AuthZen is a Java library for attribute-based authorization with AWS IAM-style dual policy evaluation.
 
 ## Features
 
@@ -31,8 +31,8 @@ Add JitPack repository:
 Add dependency:
 ```xml
 <dependency>
-    <groupId>com.github.abac-engine</groupId>
-    <artifactId>abac-engine-core</artifactId>
+    <groupId>com.github.nebulithm</groupId>
+    <artifactId>authzen-core</artifactId>
     <version>v1.0.0</version>
 </dependency>
 ```
