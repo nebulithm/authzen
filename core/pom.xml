@@ -5,16 +5,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.github.danieledefrancesco</groupId>
-        <artifactId>authzen-parent</artifactId>
+        <groupId>com.github.abac-engine</groupId>
+        <artifactId>abac-engine-parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>authzen-core</artifactId>
+    <artifactId>abac-engine-core</artifactId>
     <packaging>jar</packaging>
 
-    <name>AuthZen Core</name>
-    <description>Core authorization policy engine</description>
+    <name>ABAC Engine Core</name>
+    <description>Core ABAC policy engine</description>
 
     <dependencies>
         <dependency>
