@@ -1,0 +1,9 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/authzen
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: authzen-example
+      auto-offset-reset: earliest

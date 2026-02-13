@@ -5,7 +5,7 @@ import lombok.Value;
 import java.util.List;
 
 @Value
-@Builder(access = lombok.AccessLevel.PACKAGE)
+@Builder
 public class Policy {
     @Builder.Default
     List<Statement> statements = List.of();
