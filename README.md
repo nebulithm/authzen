@@ -33,7 +33,7 @@ Add dependency:
 <dependency>
     <groupId>com.github.nebulithm</groupId>
     <artifactId>authzen-core</artifactId>
-    <version>v1.0.0</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
@@ -242,4 +242,4 @@ org.authzen
 
 ## License
 
-Apache License 2.0
+GNU General Public License v3.0 - see [LICENSE](LICENSE) file for details

@@ -19,7 +19,7 @@ The `authzen-jackson` module provides Jackson integration for deserializing JSON
 <dependency>
     <groupId>com.github.nebulithm</groupId>
     <artifactId>authzen-jackson</artifactId>
-    <version>v1.0.0</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
