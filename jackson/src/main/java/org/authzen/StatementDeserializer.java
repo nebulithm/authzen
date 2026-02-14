@@ -1,20 +1,18 @@
 package org.authzen;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
+import tools.jackson.core.JsonParser;
+import tools.jackson.databind.DeserializationContext;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ValueDeserializer;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StatementDeserializer extends JsonDeserializer<Statement> {
+public class StatementDeserializer extends ValueDeserializer<Statement> {
     @Override
-    public Statement deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
-        JsonNode node = p.getCodec().readTree(p);
-        
+    public Statement deserialize(JsonParser p, DeserializationContext ctxt) {
+        JsonNode node = p.readValueAsTree();
+
         try {
             return StatementFactory.create(builder -> {
                 if (node.has("effect")) {
@@ -38,10 +36,10 @@ public class StatementDeserializer extends JsonDeserializer<Statement> {
                 return builder;
             });
         } catch (IllegalArgumentException e) {
-            throw JsonMappingException.from(ctxt, "Failed to deserialize Statement: " + e.getMessage(), e);
+            throw new tools.jackson.core.JacksonException("Failed to deserialize Statement: " + e.getMessage()) {};
         }
     }
-    
+
     private List<String> toList(JsonNode node) {
         List<String> list = new ArrayList<>();
         node.forEach(item -> list.add(item.asText()));

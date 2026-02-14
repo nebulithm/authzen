@@ -7,6 +7,9 @@ import java.util.List;
 @Value
 @Builder
 public class Policy {
+    String id;
+    String name;
+    String description;
     @Builder.Default
     List<Statement> statements = List.of();
 }

@@ -1,44 +1,33 @@
 package org.authzen;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
+import tools.jackson.core.JsonParser;
+import tools.jackson.databind.DeserializationContext;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ValueDeserializer;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PolicyDeserializer extends JsonDeserializer<Policy> {
+public class PolicyDeserializer extends ValueDeserializer<Policy> {
     @Override
-    public Policy deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
-        JsonNode node = p.getCodec().readTree(p);
-        
+    public Policy deserialize(JsonParser p, DeserializationContext ctxt) {
+        JsonNode node = p.readValueAsTree();
+
         try {
             return PolicyFactory.create(builder -> {
                 if (node.has("statements")) {
                     List<Statement> statements = new ArrayList<>();
                     JsonNode statementsNode = node.get("statements");
                     for (JsonNode statementNode : statementsNode) {
-                        try {
-                            Statement statement = p.getCodec().treeToValue(statementNode, Statement.class);
-                            statements.add(statement);
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
+                        Statement statement = ctxt.readTreeAsValue(statementNode, Statement.class);
+                        statements.add(statement);
                     }
                     builder.statements(statements);
                 }
                 return builder;
             });
         } catch (IllegalArgumentException e) {
-            throw JsonMappingException.from(ctxt, "Failed to deserialize Policy: " + e.getMessage(), e);
-        } catch (RuntimeException e) {
-            if (e.getCause() instanceof IOException) {
-                throw (IOException) e.getCause();
-            }
-            throw e;
+            throw new tools.jackson.core.JacksonException("Failed to deserialize Policy: " + e.getMessage()) {};
         }
     }
 }

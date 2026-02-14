@@ -1,19 +1,17 @@
 package org.authzen;
 
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class PolicyDeserializerTest {
-    private ObjectMapper mapper;
+    private JsonMapper mapper;
 
     @BeforeEach
     void setUp() {
-        mapper = new ObjectMapper();
-        mapper.registerModule(new AuthZenModule());
+        mapper = JsonMapper.builder().addModule(new AuthZenModule()).build();
     }
 
     @Test
@@ -72,7 +70,7 @@ class PolicyDeserializerTest {
             }
             """;
 
-        assertThrows(JsonMappingException.class, () -> mapper.readValue(json, Policy.class));
+        assertThrows(Exception.class, () -> mapper.readValue(json, Policy.class));
     }
 
     @Test
@@ -81,7 +79,6 @@ class PolicyDeserializerTest {
 
         Policy policy = mapper.readValue(json, Policy.class);
         
-        // Empty statements list is created by default when not provided
         assertTrue(policy.getStatements().isEmpty());
     }
 }

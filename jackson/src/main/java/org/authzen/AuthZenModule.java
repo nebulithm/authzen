@@ -1,6 +1,6 @@
 package org.authzen;
 
-import com.fasterxml.jackson.databind.module.SimpleModule;
+import tools.jackson.databind.module.SimpleModule;
 
 public class AuthZenModule extends SimpleModule {
     public AuthZenModule() {

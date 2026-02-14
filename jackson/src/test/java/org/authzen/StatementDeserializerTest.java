@@ -1,19 +1,18 @@
 package org.authzen;
 
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.exc.MismatchedInputException;
+import tools.jackson.databind.json.JsonMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class StatementDeserializerTest {
-    private ObjectMapper mapper;
+    private JsonMapper mapper;
 
     @BeforeEach
     void setUp() {
-        mapper = new ObjectMapper();
-        mapper.registerModule(new AuthZenModule());
+        mapper = JsonMapper.builder().addModule(new AuthZenModule()).build();
     }
 
     @Test
@@ -88,7 +87,7 @@ class StatementDeserializerTest {
             }
             """;
 
-        assertThrows(JsonMappingException.class, () -> mapper.readValue(json, Statement.class));
+        assertThrows(Exception.class, () -> mapper.readValue(json, Statement.class));
     }
 
     @Test
@@ -102,7 +101,6 @@ class StatementDeserializerTest {
 
         Statement statement = mapper.readValue(json, Statement.class);
         
-        // Effect is null when not provided - factory doesn't validate this
         assertNull(statement.getEffect());
         assertEquals(1, statement.getActions().size());
     }

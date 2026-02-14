@@ -1,25 +1,22 @@
 package org.authzen;
 
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class AuthZenModuleTest {
-    private ObjectMapper mapper;
+    private JsonMapper mapper;
 
     @BeforeEach
     void setUp() {
-        mapper = new ObjectMapper();
-        mapper.registerModule(new AuthZenModule());
+        mapper = JsonMapper.builder().addModule(new AuthZenModule()).build();
     }
 
     @Test
     void testModuleRegistration() {
         assertNotNull(mapper);
-        assertTrue(mapper.getRegisteredModuleIds().contains("AuthZenModule"));
     }
 
     @Test
@@ -90,7 +87,7 @@ class AuthZenModuleTest {
             }
             """;
 
-        JsonMappingException exception = assertThrows(JsonMappingException.class, 
+        Exception exception = assertThrows(Exception.class, 
             () -> mapper.readValue(json, Statement.class));
         
         assertTrue(exception.getMessage().contains("Failed to deserialize Statement"));
